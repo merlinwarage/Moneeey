@@ -79,15 +79,13 @@ Ha a `package.json` tartalmaz saját indító scriptet, azt használd. A szerver
 ## Build (Windows)
 
 ```bat
-@rem winget install Oven-sh.Bun
-@rem bun install
+winget install Oven-sh.Bun
+bun install
 mkdir dist\data
 copy finance.db dist\data\finance.db
 xcopy /E /I public dist\public
 bun build --compile --minify --windows-hide-console src/server.ts --outfile dist/moneeey.exe
 ```
-
-A `@rem` sorok megjegyzések, a Bun és a függőségek telepítése külön lépés.
 
 Eredmény:
 

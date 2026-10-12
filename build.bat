@@ -1,6 +1,6 @@
 @rem Do these steps for the first build
-@rem winget install Oven-sh.Bun
-@rem bun install
+winget install Oven-sh.Bun
+bun install
 mkdir dist\data
 copy finance.db dist\data\finance.db
 xcopy /E /I public dist\public
