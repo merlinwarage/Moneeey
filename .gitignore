@@ -1,0 +1,6 @@
+build/
+dist/ 
+*.spec
+runner.log 
+*.bak
+node_modules/

@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="hu">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Moneeey!</title>
+        <link rel="stylesheet" href="/styles.css" />
+    </head>
+    <body>
+        <div class="layout">
+            <aside class="sidebar">
+                <div class="brand">
+                    <div class="logo">◎</div>
+                    <div>
+                        <strong>Moneeey!</strong>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <button class="nav-link is-active" data-section="dashboard">
+                        Dashboard
+                    </button>
+                    <button class="nav-link" data-section="cashflow">
+                        Cashflow
+                    </button>
+                    <button class="nav-link" data-section="bonds">
+                        Állampapírok
+                    </button>
+                    <button class="nav-link" data-section="assets">
+                        Eszközök
+                    </button>
+                    <button class="nav-link" data-section="reports">
+                        Jelentések
+                    </button>
+                    <button class="nav-link" data-section="settings">
+                        Beállítások
+                    </button>
+                </nav>
+                <div class="side-card">
+                    <div class="muted">Árfolyam</div>
+                    <strong id="fx-side">1 EUR = 0 HUF</strong>
+                    <div class="muted mt">Nézet</div>
+                    <strong id="view-side">Alap</strong>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div>
+                        <h1>Vagyon chartok</h1>
+                    </div>
+                    <div class="topbar-actions">
+                        <div class="view-toggle-row">
+                            <button
+                                id="view-basic"
+                                class="toggle active"
+                                type="button"
+                            >
+                                Alap
+                            </button>
+                            <button id="view-full" class="toggle" type="button">
+                                Teljes
+                            </button>
+                        </div>
+                        <div class="currency-toggle">
+                            <button
+                                id="currency-huf"
+                                class="toggle active"
+                                type="button"
+                            >
+                                HUF
+                            </button>
+                            <button
+                                id="currency-eur"
+                                class="toggle"
+                                type="button"
+                            >
+                                EUR
+                            </button>
+                        </div>
+                        <button id="refresh-fx" type="button">
+                            EUR árfolyam frissítés
+                        </button>
+                    </div>
+                </header>
+
+                <section class="section is-visible" data-screen="dashboard">
+                    <div class="hero-grid">
+                        <article class="card metric-card">
+                            <div class="section-head">
+                                <h2>Összvagyon</h2>
+                                <span>Aktuális kép</span>
+                            </div>
+                            <div class="big-number" id="net-worth">0 Ft</div>
+                            <div class="triple-kpi">
+                                <div>
+                                    <span>Elméleti napi hozam: </span
+                                    ><strong id="daily-yield">0 Ft</strong>
+                                </div>
+                                <div>
+                                    <span>Elméleti havi hozam: </span
+                                    ><strong id="monthly-yield">0 Ft</strong>
+                                </div>
+                                <div>
+                                    <span>Elméleti éves hozam: </span
+                                    ><strong id="yearly-yield">0 Ft</strong>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Kamatok és események</h2>
+                                <span>Állampapír részletek</span>
+                            </div>
+                            <div class="detail-list">
+                                <div class="detail-row">
+                                    <span>Felhalmozott kamat</span
+                                    ><strong id="accrued-interest">0 Ft</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Következő kupon</span
+                                    ><strong id="next-coupon">Nincs</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Idei kuponhozam</span
+                                    ><strong id="year-coupon">0 Ft</strong>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- NEW: Additional KPI cards row -->
+                    <div class="hero-grid kpi-extra-grid">
+                        <article class="card metric-card">
+                            <div class="section-head">
+                                <h2>Megtakarítási ráta</h2>
+                                <span>Havi bevétel vs kiadás</span>
+                            </div>
+                            <div class="big-number" id="savings-rate">0%</div>
+                            <div class="triple-kpi">
+                                <div>
+                                    <span>Havi bevétel: </span
+                                    ><strong id="monthly-income-display">0 Ft</strong>
+                                </div>
+                                <div>
+                                    <span>Havi kiadás: </span
+                                    ><strong id="monthly-expense-display">0 Ft</strong>
+                                </div>
+                                <div>
+                                    <span>Nettó havi: </span
+                                    ><strong id="monthly-net-display">0 Ft</strong>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="card metric-card">
+                            <div class="section-head">
+                                <h2>Vésztartalék</h2>
+                                <span>6 havi kiadás fedezete</span>
+                            </div>
+                            <div class="big-number" id="emergency-fund">0%</div>
+                            <div class="triple-kpi">
+                                <div>
+                                    <span>Likvid eszköz: </span
+                                    ><strong id="liquid-assets-display">0 Ft</strong>
+                                </div>
+                                <div>
+                                    <span>Célösszeg: </span
+                                    ><strong id="emergency-target">0 Ft</strong>
+                                </div>
+                                <div>
+                                    <span>Hány hónap: </span
+                                    ><strong id="months-covered">0</strong>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <article class="card" id="full-detail-card" style="display:none; margin-bottom:16px">
+                    <div class="section-head">
+                        <h2>Részletes nézet</h2>
+                        <span>Teljes nézet</span>
+                    </div>
+                    <div id="full-detail-body"></div>
+                </article>
+                <div class="content-grid dashboard-grid">
+                        <article class="card wide chart-card">
+                            <div class="section-head">
+                                <h2>Vagyonkimutatás</h2>
+                                <span>Szimulált snapshotok</span>
+                            </div>
+                            <div class="chart-shell bar-shell">
+                                <canvas id="wealth-chart"></canvas>
+                            </div>
+                        </article>
+                        <article class="card allocation-card">
+                            <div class="section-head">
+                                <h2>Eszközallokáció</h2>
+                                <span>Fix négyzetes chart</span>
+                            </div>
+                            <div class="allocation-fixed">
+                                <canvas id="allocation-chart"></canvas>
+                            </div>
+                        </article>
+                        <article class="card chart-card">
+                            <div class="section-head">
+                                <h2>Negyedéves előrejelzés</h2>
+                                <span>8 negyedév</span>
+                            </div>
+                            <div class="chart-shell forecast-shell">
+                                <canvas id="quarterly-chart"></canvas>
+                            </div>
+                        </article>
+                        <article class="card chart-card">
+                            <div class="section-head">
+                                <h2>Éves előrejelzés</h2>
+                                <span>6 év</span>
+                            </div>
+                            <div class="chart-shell forecast-shell">
+                                <canvas id="yearly-chart"></canvas>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Cashflow lista</h2>
+                                <span>Aktív tételek</span>
+                            </div>
+                            <div id="cashflow-list"></div>
+                        </article>
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Papírok és lejáratok</h2>
+                                <span>Magyar állampapírok</span>
+                            </div>
+                            <div id="bond-list"></div>
+                        </article>
+                        <article class="card full-span">
+                            <div class="section-head">
+                                <h2>Állampapír kifizetési naptár</h2>
+                                <span>Következő kuponok és lejáratok</span>
+                            </div>
+                            <div id="bond-calendar"></div>
+                        </article>
+                    </div>
+
+                    <!-- NEW: Spending breakdown section -->
+                    <div class="content-grid" style="margin-top: 16px;">
+                        <article class="card chart-card">
+                            <div class="section-head">
+                                <h2>Kiadások kategóriánként</h2>
+                                <span>Havi bontás</span>
+                            </div>
+                            <div class="chart-shell">
+                                <canvas id="spending-chart"></canvas>
+                            </div>
+                        </article>
+                        <article class="card chart-card">
+                            <div class="section-head">
+                                <h2>Megtakarítási ráta</h2>
+                                <span>Cél: 20%</span>
+                            </div>
+                            <div class="chart-shell">
+                                <canvas id="savings-rate-chart"></canvas>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- NEW: Income vs Expense chart -->
+                    <div class="content-grid" style="margin-top: 16px;">
+                        <article class="card chart-card">
+                            <div class="section-head">
+                                <h2>Bevétel vs Kiadás</h2>
+                                <span>Havi összesítés</span>
+                            </div>
+                            <div class="chart-shell">
+                                <canvas id="income-expense-chart"></canvas>
+                            </div>
+                        </article>
+                        <article class="card chart-card">
+                            <div class="section-head">
+                                <h2>Bevételek kategóriánként</h2>
+                                <span>Havi bontás</span>
+                            </div>
+                            <div class="chart-shell">
+                                <canvas id="income-breakdown-chart"></canvas>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="section" data-screen="cashflow">
+                    <div class="two-col">
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Bevétel és kiadás</h2>
+                                <span>Új tétel</span>
+                            </div>
+                            <form id="cashflow-form" class="form-grid">
+                                <label
+                                    ><span>Típus</span
+                                    ><select name="kind" id="cashflow-kind">
+                                        <option value="income">Bevétel</option>
+                                        <option value="expense">Kiadás</option>
+                                    </select></label
+                                >
+                                <label
+                                    ><span>Kategória</span
+                                    ><select name="category" id="cashflow-category">
+                                        <option value="">-- Válassz --</option>
+                                    </select></label
+                                >
+                                <label
+                                    ><span>Megnevezés</span
+                                    ><input
+                                        name="name"
+                                        required
+                                        placeholder="pl. Fizetés"
+                                /></label>
+                                <label
+                                    ><span>Összeg (HUF)</span
+                                    ><input
+                                        type="number"
+                                        min="0"
+                                        name="amount"
+                                        required
+                                /></label>
+                                <label
+                                    ><span>Kezdő dátum</span
+                                    ><input
+                                        type="date"
+                                        name="startDate"
+                                        required
+                                /></label>
+                                <label
+                                    ><span>Intervallum</span
+                                    ><select name="interval">
+                                        <option value="monthly">Havi</option>
+                                        <option value="quarterly">
+                                            Negyedéves
+                                        </option>
+                                        <option value="yearly">Éves</option>
+                                    </select></label
+                                >
+                                <label class="checkbox-row"
+                                    ><input
+                                        type="checkbox"
+                                        name="recurring"
+                                        checked
+                                    /><span>Ismétlődő tétel</span></label
+                                >
+                                <label class="full"
+                                    ><span>Megjegyzés</span
+                                    ><input
+                                        name="note"
+                                        placeholder="opcionális"
+                                /></label>
+                                <div
+                                    class="form-editbar full"
+                                    id="cashflow-editbar"
+                                >
+                                    <span
+                                        id="cashflow-edit-hint"
+                                        class="form-hint muted"
+                                    ></span
+                                    ><button
+                                        id="cashflow-cancel"
+                                        class="ghost-button"
+                                        type="button"
+                                    >
+                                        Mégse
+                                    </button>
+                                </div>
+                                <button
+                                    id="cashflow-submit"
+                                    class="primary full"
+                                    type="submit"
+                                >
+                                    Tétel mentése
+                                </button>
+                            </form>
+                        </article>
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Cashflow lista</h2>
+                                <span>Aktív tételek</span>
+                            </div>
+                            <div id="cashflow-list-editor"></div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="section" data-screen="bonds">
+                    <div class="two-col">
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Magyar állampapírok</h2>
+                                <span>Új papír felvitele</span>
+                            </div>
+                            <form id="bond-form" class="form-grid">
+                                <label
+                                    ><span>Típus</span
+                                    ><select name="type">
+                                        <option>
+                                            Prémium Magyar Állampapír (PMÁP)
+                                        </option>
+                                        <option>
+                                            Bónusz Magyar Állampapír
+                                        </option>
+                                        <option>Fix Magyar Állampapír</option>
+                                        <option>MÁP Plusz</option>
+                                    </select></label
+                                >
+                                <label
+                                    ><span>Sorozat / címke</span
+                                    ><input
+                                        name="series"
+                                        required
+                                        placeholder="pl. 2031/Q3"
+                                /></label>
+                                <label
+                                    ><span>Névérték / összeg (HUF)</span
+                                    ><input
+                                        type="number"
+                                        min="0"
+                                        name="principal"
+                                        required
+                                /></label>
+                                <label
+                                    ><span>Éves kamat (%)</span
+                                    ><input
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        name="annualRate"
+                                        required
+                                /></label>
+                                <label
+                                    ><span>Vásárlás dátuma</span
+                                    ><input
+                                        type="date"
+                                        name="purchaseDate"
+                                        required
+                                /></label>
+                                <label
+                                    ><span>Lejárat</span
+                                    ><input
+                                        type="date"
+                                        name="maturityDate"
+                                        required
+                                /></label>
+                                <label
+                                    ><span>Kupongyakoriság</span
+                                    ><select name="couponFrequency">
+                                        <option value="quarterly">
+                                            Negyedéves
+                                        </option>
+                                        <option value="semiannual">
+                                            Félévente
+                                        </option>
+                                        <option value="annual">Évente</option>
+                                        <option value="monthly">Havonta</option>
+                                        <option value="at_maturity">
+                                            Lejáratkor
+                                        </option>
+                                    </select></label
+                                >
+                                <label class="checkbox-row">
+									<input
+                                        type="checkbox"
+                                        name="reinvestInterest"
+                                    /><span>Kamat újrabefektetése</span></label								
+                                >
+								<label><input type="checkbox" name="liquid" /> Azonnal hozzáférhető (likvid)</label>
+                                <label
+                                    ><span>Újrabefektetési kamat (%)</span
+                                    ><input
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        name="reinvestRate"
+                                        value="0"
+                                /></label>
+                                <label class="full"
+                                    ><span>Kamatsávok évenként (opcionális, pl. 5.5, 6, 6.5)</span
+                                    ><input name="rateSteps" placeholder="üres = fix éves kamat"
+                                /></label>
+                                <div
+                                    class="form-editbar full"
+                                    id="bond-editbar"
+                                >
+                                    <span
+                                        id="bond-edit-hint"
+                                        class="form-hint muted"
+                                    ></span
+                                    ><button
+                                        id="bond-cancel"
+                                        class="ghost-button"
+                                        type="button"
+                                    >
+                                        Mégse
+                                    </button>
+                                </div>
+                                <button
+                                    id="bond-submit"
+                                    class="primary full"
+                                    type="submit"
+                                >
+                                    Papír mentése
+                                </button>
+                            </form>
+                        </article>
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Papírok és lejáratok</h2>
+                                <span>Aktív állampapírok</span>
+                            </div>
+                            <div id="bond-list-editor"></div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="section" data-screen="assets">
+                    <div class="two-col">
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Eszköz felvitele</h2>
+                                <span>Új eszköz</span>
+                            </div>
+                            <form id="asset-form" class="form-grid">
+                                <label
+                                    ><span>Megnevezés</span
+                                    ><input
+                                        name="name"
+                                        required
+                                        placeholder="pl. TBSZ ETF"
+                                /></label>
+                                <label
+                                    ><span>Kategória</span
+                                    ><select name="category">
+                                        <option value="cash">Készpénz</option>
+                                        <option value="bank">Bankszámla</option>
+                                        <option value="etf">ETF</option>
+                                        <option value="stock">Részvény</option>
+                                        <option value="other">Egyéb</option>
+                                        <option value="liability">
+                                            Tartozás
+                                        </option>
+                                    </select></label
+                                >
+                                <label
+                                    ><span>Összeg</span
+                                    ><input
+                                        type="number"
+                                        min="0"
+                                        name="amount"
+                                        required
+                                /></label>
+                                <label class="asset-qp" style="display:none"
+                                    ><span>Darabszám (részvény/ETF)</span
+                                    ><input type="number" min="0" step="any" name="quantity" placeholder="pl. 12"
+                                /></label>
+                                <label class="asset-qp" style="display:none"
+                                    ><span>Árfolyam / db (a pénznemben)</span
+                                    ><input type="number" min="0" step="any" name="price" placeholder="pl. 123.45"
+                                /></label>
+                                <label
+                                    ><span>Pénznem</span
+                                    ><select name="currency">
+                                        <option value="HUF">HUF</option>
+                                        <option value="EUR">EUR</option>
+                                    </select></label
+                                >
+                                <label class="full"
+                                    ><span>Megjegyzés</span
+                                    ><input
+                                        name="note"
+                                        placeholder="opcionális"
+                                /></label>
+                                <div
+                                    class="form-editbar full"
+                                    id="asset-editbar"
+                                >
+                                    <span
+                                        id="asset-edit-hint"
+                                        class="form-hint muted"
+                                    ></span
+                                    ><button
+                                        id="asset-cancel"
+                                        class="ghost-button"
+                                        type="button"
+                                    >
+                                        Mégse
+                                    </button>
+                                </div>
+                                <button
+                                    id="asset-submit"
+                                    class="primary full"
+                                    type="submit"
+                                >
+                                    Eszköz mentése
+                                </button>
+                            </form>
+                        </article>
+                        <article class="card">
+                            <div id="asset-list"></div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- NEW: Reports section -->
+                <section class="section" data-screen="reports">
+                    <div class="two-col">
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Egyensúlyi mérleg</h2>
+                                <span>Eszközök és kötelezettségek</span>
+                            </div>
+                            <div id="balance-sheet-body"></div>
+                        </article>
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Jövedelemkimutatás</h2>
+                                <span>Havi bevétel és kiadás</span>
+                            </div>
+                            <div id="income-statement-body"></div>
+                        </article>
+                    </div>
+                    <div class="two-col" style="margin-top: 16px;">
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Kiadások részletes bontása</h2>
+                                <span>Kategóriánként</span>
+                            </div>
+                            <div id="expense-breakdown-body"></div>
+                        </article>
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Bevételek részletes bontása</h2>
+                                <span>Kategóriánként</span>
+                            </div>
+                            <div id="income-breakdown-body"></div>
+                        </article>
+                    </div>
+                    <div class="two-col" style="margin-top: 16px;">
+                        <article class="card full-span">
+                            <div class="section-head">
+                                <h2>Állampapír portfólió összefoglaló</h2>
+                                <span>Összes aktív papír részletei</span>
+                            </div>
+                            <div id="bond-portfolio-body"></div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="section" data-screen="settings">
+                    <div class="two-col">
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Beállítások</h2>
+                                <span>Deviza és árfolyam</span>
+                            </div>
+                            <form id="settings-form" class="form-grid">
+                                <label
+                                    ><span>Megjelenítés</span
+                                    ><select name="displayCurrency">
+                                        <option value="HUF">HUF</option>
+                                        <option value="EUR">EUR</option>
+                                    </select></label
+                                >
+                                <label
+                                    ><span>EUR/HUF árfolyam</span
+                                    ><input
+                                        type="number"
+                                        step="0.01"
+                                        min="0"
+                                        name="eurHufRate"
+                                        required
+                                /></label>
+                                <label
+                                    ><span>Bevétel növekedés (%)</span
+                                    ><input
+                                        type="number"
+                                        step="0.1"
+                                        min="0"
+                                        name="incomeGrowth"
+                                        value="3"
+                                /></label>
+                                <label
+                                    ><span>Kiadás növekedés (%)</span
+                                    ><input
+                                        type="number"
+                                        step="0.1"
+                                        min="0"
+                                        name="expenseGrowth"
+                                        value="2"
+                                /></label>
+                                <label
+                                    ><span>Eszköz növekedés (%)</span
+                                    ><input
+                                        type="number"
+                                        step="0.1"
+                                        min="0"
+                                        name="assetGrowth"
+                                        value="6"
+                                /></label>
+                                <label
+                                    ><span>Infláció (%)</span
+                                    ><input
+                                        type="number"
+                                        step="0.1"
+                                        min="0"
+                                        name="inflation"
+                                        value="3.5"
+                                /></label>
+                                <label
+                                    ><span>Kamatadó az állampapírokon (%)</span
+                                    ><input type="number" step="0.1" min="0" max="100" name="interestTax" value="0"
+                                /></label>
+                                <button class="primary full" type="submit">
+                                    Beállítások mentése
+                                </button>
+                            </form>
+                        </article>
+
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="/app.js"></script>
+		<script>
+			fetch("/api/ping");
+			addEventListener("pagehide", () => navigator.sendBeacon("/api/quit"));
+		</script>
+    </body>
+</html>
