@@ -62,6 +62,10 @@ Az alkalmazás egyetlen helyi futtatható fájlként is csomagolható. Az adatok
 
 ## Gyors kezdés
 
+Futtatható alkalmazás letöltése [https://github.com/merlinwarage/Moneeey/releases/download/v10.0.0/moneeey-v10.0.0_x64.zip](https://github.com/merlinwarage/Moneeey/releases/download/v10.0.0/moneeey-v10.0.0_x64.zip)
+
+vagy forrásból
+
 Előfeltétel: Windows és [Bun](https://bun.sh).
 
 ```bat
