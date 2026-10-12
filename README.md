@@ -62,6 +62,10 @@ Az alkalmazás egyetlen helyi futtatható fájlként is csomagolható. Az adatok
 
 ## Gyors kezdés
 
+Futtatható alkalmazás letöltése `moneeey-*_x64.zip` a [**Releases**](../../releases) oldalról, tömörítsd ki és futtasd a `moneeey.exe`-t.
+
+vagy forrásból
+
 Előfeltétel: Windows és [Bun](https://bun.sh).
 
 ```bat
