@@ -4,11 +4,11 @@ Offline személyes pénzügyi tervező TypeScript, Bun és SQLite alapokon. Egy 
 
 Az alkalmazás egyetlen helyi futtatható fájlként is csomagolható. Az adatok a saját gépen, SQLite-adatbázisban maradnak.
 
-<img src="docs/dashboard.png" alt="Dashboard" width="19%">
-<img src="docs/details.png" alt="Dashboard" width="19%">
-<img src="docs/bonds.png" alt="Cashflow" width="19%">
-<img src="docs/reports.png" alt="Reports" width="19%">
-<img src="docs/coupons.png" alt="Coupons" width="19%">
+<img src="docs/dashboard.png" alt="Dashboard" width="49%">
+<img src="docs/details.png" alt="Details" width="49%">
+<img src="docs/bonds.png" alt="Bonds" width="49%">
+<img src="docs/reports.png" alt="Reports" width="49%">
+<img src="docs/coupons.png" alt="Coupons" width="49%">
 
 ## Funkciók
 
