@@ -1,10 +1,14 @@
-# Moneeey!
+# Moneeey
 
 Offline személyes pénzügyi tervező TypeScript, Bun és SQLite alapokon. Egy helyen követi a vagyont, a bevételeket és kiadásokat, a magyar állampapírokat, a részvényeket, ETF-eket és a kuponkifizetéseket, majd inflációval korrigált előrejelzést készít.
 
 Az alkalmazás egyetlen helyi futtatható fájlként is csomagolható. Az adatok a saját gépen, SQLite-adatbázisban maradnak.
 
-<img src="docs/screenshot.jpg" alt="llama-server runner screenshot" width="900">
+<img src="docs/dashboard.png" alt="Dashboard" width="33%">
+<img src="docs/details.png" alt="Dashboard" width="33%">
+<img src="docs/bonds.png" alt="Cashflow" width="33%">
+<img src="docs/reports.png" alt="Reports" width="33%">
+<img src="docs/coupons.png" alt="Coupons" width="33%">
 
 ## Funkciók
 
