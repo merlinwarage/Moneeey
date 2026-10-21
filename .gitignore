@@ -4,3 +4,4 @@ dist/
 runner.log 
 *.bak
 node_modules/
+backup/

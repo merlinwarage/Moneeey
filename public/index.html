@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Moneeey!</title>
-        <link rel="stylesheet" href="/styles.css" />
+        <link rel="stylesheet" href="/css/styles.css" />
     </head>
     <body>
         <div class="layout">
@@ -41,12 +41,15 @@
                     <div class="muted mt">Nézet</div>
                     <strong id="view-side">Alap</strong>
                 </div>
+                <div class="side-card-bottom">
+                    <div class="muted">v10.2.0</div>
+                </div>
             </aside>
 
             <main class="main">
                 <header class="topbar">
                     <div>
-                        <h1>Vagyon chartok</h1>
+                        <h1></h1>
                     </div>
                     <div class="topbar-actions">
                         <div class="view-toggle-row">
@@ -245,13 +248,14 @@
                     <div class="content-grid" style="margin-top: 16px;">
                         <article class="card chart-card">
                             <div class="section-head">
-                                <h2>Kiadások kategóriánként</h2>
-                                <span>Havi bontás</span>
+                                <h2>Bevétel vs Kiadás</h2>
+                                <span>Havi összesítés</span>
                             </div>
                             <div class="chart-shell">
-                                <canvas id="spending-chart"></canvas>
+                                <canvas id="income-expense-chart"></canvas>
                             </div>
                         </article>
+
                         <article class="card chart-card">
                             <div class="section-head">
                                 <h2>Megtakarítási ráta</h2>
@@ -263,23 +267,22 @@
                         </article>
                     </div>
 
-                    <!-- NEW: Income vs Expense chart -->
-                    <div class="content-grid" style="margin-top: 16px;">
-                        <article class="card chart-card">
+                    <div class="breakdown-grid">
+                        <article class="card donut-card">
                             <div class="section-head">
-                                <h2>Bevétel vs Kiadás</h2>
-                                <span>Havi összesítés</span>
+                                <h2>Kiadások kategóriánként</h2>
+                                <span>Havi bontás</span>
                             </div>
-                            <div class="chart-shell">
-                                <canvas id="income-expense-chart"></canvas>
+                            <div class="donut-shell">
+                                <canvas id="spending-chart"></canvas>
                             </div>
                         </article>
-                        <article class="card chart-card">
+                        <article class="card donut-card">
                             <div class="section-head">
                                 <h2>Bevételek kategóriánként</h2>
                                 <span>Havi bontás</span>
                             </div>
-                            <div class="chart-shell">
+                            <div class="donut-shell">
                                 <canvas id="income-breakdown-chart"></canvas>
                             </div>
                         </article>
@@ -462,13 +465,13 @@
                                         </option>
                                     </select></label
                                 >
+								<label class="checkbox-row"><input type="checkbox" name="liquid" /> Azonnal hozzáférhető (likvid)</label>
                                 <label class="checkbox-row">
 									<input
                                         type="checkbox"
                                         name="reinvestInterest"
                                     /><span>Kamat újrabefektetése</span></label								
                                 >
-								<label><input type="checkbox" name="liquid" /> Azonnal hozzáférhető (likvid)</label>
                                 <label
                                     ><span>Újrabefektetési kamat (%)</span
                                     ><input
@@ -725,8 +728,27 @@
             </main>
         </div>
 
-        <script src="/chart.js"></script>
-        <script src="/app.js"></script>
+        <script src="js//chart.js"></script>
+        <script src="js/fit.js"></script>
+        <script src="js/state.js"></script>
+		<script src="js/utils.js"></script>
+		<script src="js/dates.js"></script>
+		<script src="js/bonds.js"></script>
+		<script src="js/cashflow.js"></script>
+		<script src="js/wealth.js"></script>
+		<script src="js/forecast.js"></script>
+		<script src="js/breakdown.js"></script>
+		<script src="js/forms.js"></script>
+		<script src="js/categories.js"></script>
+		<script src="js/render-kpis.js"></script>
+		<script src="js/render-lists.js"></script>
+		<script src="js/render-charts.js"></script>
+		<script src="js/render-statements.js"></script>
+		<script src="js/render-full.js"></script>
+		<script src="js/render-all.js"></script>
+		<script src="js/store.js"></script>
+		<script src="js/events.js"></script>
+		<script src="js/main.js"></script>
 		<script>
 			fetch("/api/ping");
 			addEventListener("pagehide", () => navigator.sendBeacon("/api/quit"));

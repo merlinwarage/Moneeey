@@ -4,4 +4,4 @@ bun install
 mkdir dist\data
 copy finance.db dist\data\finance.db
 xcopy /E /I public dist\public
-bun build --compile --minify --windows-hide-console src/server.ts --outfile dist/moneeey.exe
+bun build --compile --minify --windows-hide-console server/server.ts --outfile dist/moneeey.exe

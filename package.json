@@ -3,8 +3,9 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "start": "tsx src/server.ts",
-        "build": "tsc -p tsconfig.json"
+		"start": "bun server/server.ts",
+		"dev": "bun --watch server/server.ts",
+		"build": "bun build --compile --minify --windows-hide-console server/server.ts --outfile dist/moneeey.exe"				  
     },
     "dependencies": {
         "better-sqlite3": "^11.8.1",
