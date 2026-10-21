@@ -57,7 +57,7 @@ Az alkalmazás egyetlen helyi futtatható fájlként is csomagolható. Az adatok
 | Nyelv            | TypeScript                               |
 | Futtatókörnyezet | Bun                                      |
 | Adatbázis        | SQLite (`finance.db`)                    |
-| Szerver          | `src/server.ts`                          |
+| Szerver          | `server/server.ts`                       |
 | Frontend         | statikus fájlok a `public` mappában      |
 | Csomagolás       | `bun build --compile` önálló Windows exe |
 
@@ -72,10 +72,10 @@ Előfeltétel: Windows és [Bun](https://bun.sh).
 ```bat
 winget install Oven-sh.Bun
 bun install
-bun run src/server.ts
+bun run server/server.ts
 ```
 
-Ha a `package.json` tartalmaz saját indító scriptet, azt használd. A szerver portját és címét a `src/server.ts` határozza meg.
+A `package.json` tartalmaz saját indító és dev scriptet, azt használd. A szerver portját és címét a `server/config.ts` határozza meg.
 
 ## Build (Windows)
 
@@ -85,7 +85,7 @@ bun install
 mkdir dist\data
 copy finance.db dist\data\finance.db
 xcopy /E /I public dist\public
-bun build --compile --minify --windows-hide-console src/server.ts --outfile dist/moneeey.exe
+bun build --compile --minify --windows-hide-console server/server.ts --outfile dist/moneeey.exe
 ```
 
 Eredmény:
