@@ -31,6 +31,7 @@ qs("#settings-form")?.addEventListener("submit", async (e) => {
     incomeGrowth: num(fd.get("incomeGrowth")), expenseGrowth: num(fd.get("expenseGrowth")),
     assetGrowth: num(fd.get("assetGrowth")), inflation: num(fd.get("inflation")),
     interestTax: Math.min(100, Math.max(0, num(fd.get("interestTax")))),
+	bondMarketRate: num(fd.get('bondMarketRate')) || 99
   });
   renderAll(); alert("Beállítások mentve");
 });

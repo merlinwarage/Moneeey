@@ -1,4 +1,4 @@
-@rem Do these steps for the first build
+@rem Do these steps for the first build 
 winget install Oven-sh.Bun
 bun install
 mkdir dist\data

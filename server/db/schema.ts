@@ -10,7 +10,8 @@ export function createTables() {
   incomeGrowth REAL NOT NULL DEFAULT 3,
   expenseGrowth REAL NOT NULL DEFAULT 2,
   assetGrowth REAL NOT NULL DEFAULT 6,
-  inflation REAL NOT NULL DEFAULT 3.5
+  inflation REAL NOT NULL DEFAULT 3.5,
+  bondMarketRate REAL NOT NULL DEFAULT 99
   );
   CREATE TABLE IF NOT EXISTS cashflows (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -67,4 +68,5 @@ export function migrate() {
   ensureColumn("settings", "assetGrowth", "ALTER TABLE settings ADD COLUMN assetGrowth REAL NOT NULL DEFAULT 6;");
   ensureColumn("settings", "inflation", "ALTER TABLE settings ADD COLUMN inflation REAL NOT NULL DEFAULT 3.5;");
   ensureColumn("settings", "interestTax", "ALTER TABLE settings ADD COLUMN interestTax REAL NOT NULL DEFAULT 0;");
+  ensureColumn("settings", "bondMarketRate", "ALTER TABLE settings ADD COLUMN bondMarketRate REAL NOT NULL DEFAULT 0;");
 }

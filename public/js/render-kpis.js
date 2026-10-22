@@ -8,6 +8,7 @@ function renderKpis() {
   set("#accrued-interest", money(accruedInterest()));
   set("#next-coupon", nextCouponInfo());
   set("#year-coupon", money(thisYearCoupons()));
+  set("#bond-market-value", money(bondMarketValue()));
   set("#fx-side", `1 EUR = ${num(state.settings.eurHufRate).toFixed(2)} HUF`);
   set("#view-side", state.view === "basic" ? "Alap" : "Teljes");
   set("#savings-rate", `${savingsRate().toFixed(1)}%`);

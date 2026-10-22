@@ -42,7 +42,7 @@
                     <strong id="view-side">Alap</strong>
                 </div>
                 <div class="side-card-bottom">
-                    <div class="muted">v10.2.0</div>
+                    <div class="muted">v10.3.0</div>
                 </div>
             </aside>
 
@@ -127,6 +127,10 @@
                                     <span>Idei kuponhozam</span
                                     ><strong id="year-coupon">0 Ft</strong>
                                 </div>
+								<div class="detail-row">
+									<span>Piaci érték (likvidálható)</span
+									><strong id="bond-market-value">0 Ft</strong>
+								</div>
                             </div>
                         </article>
                     </div>
@@ -717,6 +721,10 @@
                                     ><span>Kamatadó az állampapírokon (%)</span
                                     ><input type="number" step="0.1" min="0" max="100" name="interestTax" value="0"
                                 /></label>
+								<label>
+									<span>Állampapír piaci árfolyam (%)</span
+								><input type="number" step="0.01" min="0" max="200" name="bondMarketRate" value="99"
+							/></label>
                                 <button class="primary full" type="submit">
                                     Beállítások mentése
                                 </button>

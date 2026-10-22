@@ -3,8 +3,8 @@ import { db } from "./connection";
 export function seed() {
   if (!(db.prepare("SELECT COUNT(*) c FROM settings").get() as { c: number }).c) {
     db.prepare(
-      "INSERT INTO settings (id, theme, displayCurrency, eurHufRate, incomeGrowth, expenseGrowth, assetGrowth, inflation, interestTax) VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?)",
-    ).run("dark", "HUF", 355.28, 3, 2, 6, 3.5, 0);
+      "INSERT INTO settings (id, theme, displayCurrency, eurHufRate, incomeGrowth, expenseGrowth, assetGrowth, inflation, interestTax, bondMarketRate) VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    ).run("dark", "HUF", 355.28, 3, 2, 6, 3.5, 0, 99);
   }
 
   if (!(db.prepare("SELECT COUNT(*) c FROM cashflows").get() as { c: number }).c) {

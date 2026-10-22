@@ -6,6 +6,16 @@ const growthAssets = () => state.assets.filter((a) => a.category === "etf" || a.
 const investableAssets = () => growthAssets().reduce((s, a) => s + assetHuf(a), 0);
 const annualAssetYield = () => investableAssets() * num(state.settings.assetGrowth) / 100;
 const bondTotalValue = () => totalBondPrincipal() + accruedInterest() + reinvestedBalanceNow();
+const getBondMarketRate = () => {
+  const r = num(state.settings.bondMarketRate);
+  return (r > 0 && r <= 200) ? r : 99; // default 99%, ha nincs beállítva
+};
+
+const bondMarketValue = () => {
+  const rate = getBondMarketRate() / 100;
+  return totalBondPrincipal() * rate + accruedInterest() + reinvestedBalanceNow();
+};
+const grossAssetsTotalMarket = () => sumCat("cash") + sumCat("bank") + sumCat("etf") + sumCat("stock") + sumCat("other") + bondMarketValue();
 const grossAssetsTotal = () => sumCat("cash") + sumCat("bank") + sumCat("etf") + sumCat("stock") + sumCat("other") + bondTotalValue();
 const currentNetWorth = () => grossAssetsTotal() - Math.abs(sumCat("liability"));
 function liquidTotal() {

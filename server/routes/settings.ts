@@ -17,7 +17,7 @@ export function registerSettingsRoutes(app: Express) {
     const b = req.body || {};
     const rate = numOr(b.eurHufRate, 355.28);
     db.prepare(
-      "UPDATE settings SET theme=?, displayCurrency=?, eurHufRate=?, incomeGrowth=?, expenseGrowth=?, assetGrowth=?, inflation=?, interestTax=? WHERE id=1",
+      "UPDATE settings SET theme=?, displayCurrency=?, eurHufRate=?, incomeGrowth=?, expenseGrowth=?, assetGrowth=?, inflation=?, interestTax=?, bondMarketRate=? WHERE id=1",
     ).run(
       b.theme || "dark",
       b.displayCurrency === "EUR" ? "EUR" : "HUF",
@@ -27,6 +27,7 @@ export function registerSettingsRoutes(app: Express) {
       numOr(b.assetGrowth, 6),
       numOr(b.inflation, 3.5),
       Math.min(100, Math.max(0, numOr(b.interestTax, 0))),
+	  numOr(b.bondMarketRate, 99),
     );
     res.json(db.prepare("SELECT * FROM settings WHERE id=1").get());
   });

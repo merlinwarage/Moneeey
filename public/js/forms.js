@@ -52,6 +52,7 @@ function fillSettingsForm() {
   f.assetGrowth.value = String(state.settings.assetGrowth);
   f.inflation.value = String(state.settings.inflation);
   f.interestTax.value = String(state.settings.interestTax ?? 0);
+  f.bondMarketRate.value = String(state.settings.bondMarketRate || 99);
 }
 function syncAssetForm() {
   const f = qs("#asset-form"); if (!f) return;
